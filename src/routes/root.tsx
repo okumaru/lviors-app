@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet, redirect, useNavigation, useLoaderData } from "react-router-dom";
+import { Outlet, redirect, useNavigate, useNavigation, useLoaderData } from "react-router-dom";
 
 import { createContact } from "../utils/contacts";
 import { getUser, getToken, logoutUser } from "../utils/user";
@@ -23,17 +23,18 @@ export async function action() {
   return redirect(`/contacts/${contact.id}/edit`);
 }
 
-const logoutHandler = async () => {
+const logoutHandler = async (callback: (status: boolean) => void) => {
   try {
 
     await logoutUser();
-    return window.location.href = "/login"
+
+    return callback(true)
 
   } catch (e) {
     if (e instanceof Error)
       console.error(e.message)
 
-    return
+    return callback(false)
   }
 }
 
@@ -44,6 +45,7 @@ type loader = {
 export default function () {
   const { user } = useLoaderData() as loader;
   const navigation = useNavigation();
+  const navigate = useNavigate();
 
   const [sidebarCol, setSidebarCol] = useState(false);
   const [fullContent, setFullContent] = useState(false);
@@ -66,7 +68,10 @@ export default function () {
           user={user}
           fullContent={fullContent}
           togleSidebar={() => setSidebarCol(!sidebarCol)}
-          logoutHandler={() => logoutHandler()}
+          logoutHandler={() => logoutHandler((status) => {
+            if (status) 
+              navigate('/')
+          })}
         />
         <div
           id="detail"
