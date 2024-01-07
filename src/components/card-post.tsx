@@ -21,7 +21,7 @@ export default function ({
   const [likeCount, changeLikeCount] = useState<number>(post.likes || 0);
 
   return <div className="border border-slate-200 rounded-lg overflow-hidden">
-    <div className="flex justify-center">
+    <div className="flex justify-center h-56">
       <img
         className="max-w-full max-h-56"
         src={`${api_host + post.photo?.replace("tmp/uploads/", "")}`}
