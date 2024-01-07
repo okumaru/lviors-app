@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import Toast from "../../components/toast"
 import type { addPost } from "../../@types/add-post"
@@ -13,7 +14,8 @@ const addPostHandler = async (
   try {
 
     await addUserPost(data);
-    return window.location.href = "/posts"
+
+    return callback(true)
 
   } catch (e) {
     if (e instanceof Error)
@@ -24,6 +26,8 @@ const addPostHandler = async (
 }
 
 export default function () {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<handlerProps>({
     name: "",
@@ -101,7 +105,11 @@ export default function () {
       <button 
         className="cursor-pointer text-base font-medium px-4 py-2 rounded-md text-cyan-700 bg-cyan-100"
         onClick={() => addPostHandler(data, (status) => {
-          if (!status) setOpen(true)
+          if (!status) 
+            setOpen(true)
+
+          if (status)
+            navigate('/posts')
         })}
       >
         Save Post

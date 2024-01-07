@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { MagnifyingGlassIcon, CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons"
 import SelectSearchPost from "../../components/select-search-post"
 import CardPost from "../../components/card-post"
@@ -9,6 +9,8 @@ import type { fetchPost } from "../../@types/fetch-post"
 import type { searchCond } from "../../@types/search-conditions"
 
 export default function () {
+
+  const navigate = useNavigate();
 
   const [totPage, SetTotPage] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -126,7 +128,7 @@ export default function () {
         posts.map((post, i: number) => <CardPost
           key={i}
           post={post}
-          editHandler={() => { window.location.href = `posts/${post.id}` }}
+          editHandler={() => navigate(`${post.id}`)}
         />)
       }
     </div>

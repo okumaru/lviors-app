@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NavLink, redirect } from "react-router-dom"
+import { NavLink, redirect, useNavigate } from "react-router-dom"
 import Toast from "../components/toast"
 import type { user } from "../@types/user"
 import { registerUser } from "../utils/user"
@@ -39,8 +39,7 @@ const registerHandler = async (
 
     await registerUser(data);
 
-    // return redirect(`/login`); // PR: blm tau knp tidak jalan.
-    return window.location.href = "/login"
+    return callback(true)
 
   } catch (e) {
     if (e instanceof Error)
@@ -51,6 +50,8 @@ const registerHandler = async (
 }
 
 export default function () {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<handlerProps>({
     name: "", 
@@ -138,7 +139,11 @@ export default function () {
           <button 
             className="cursor-pointer text-base font-medium px-4 py-2 rounded-md text-cyan-700 bg-cyan-100"
             onClick={() => registerHandler(data, (status) => {
-              if (!status) setOpen(true)
+              if (!status) 
+                setOpen(true)
+
+              if (status)
+                navigate('/login')
             })}
           >
             Register
