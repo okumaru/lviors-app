@@ -4,10 +4,11 @@ import type { searchCond } from "../@types/search-conditions";
 import { convTokenUserid } from "./user";
 
 const api_host = import.meta.env.VITE_API_ENDPOINT || "http://localhost:3000/";
-const userid = await convTokenUserid();
 
 export async function addUserPost(data: addPost) {
   
+  const userid = await convTokenUserid();
+
   const formData = new FormData();
   formData.append("name", data.name);
   formData.append("caption", data.caption);
@@ -30,6 +31,8 @@ export async function addUserPost(data: addPost) {
 
 export async function updateUserPost(id: number,data: updatePost) {
   
+  const userid = await convTokenUserid();
+
   const formData = new FormData();
   formData.append("name", data.name);
   formData.append("caption", data.caption);
@@ -54,6 +57,8 @@ export async function updateUserPost(id: number,data: updatePost) {
 
 export async function getOneUserPost(id: number) {
   
+  const userid = await convTokenUserid();
+
   const res = await fetch(`${api_host}users/${userid}/posts/${id}`,{
     method: 'GET',
     // headers: { 'Content-Type': 'application/json' },
@@ -76,6 +81,8 @@ export async function getUserPosts(
   conditions?: searchCond
 ) {
 
+  const userid = await convTokenUserid();
+  
   let url = `${api_host}users/${userid}/posts?page=${page}&limit=${limit}`;
 
   if (conditions?.name)
