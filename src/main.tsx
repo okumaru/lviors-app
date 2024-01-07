@@ -24,16 +24,16 @@ import EditPostPage, {
   loader as editPostLoader 
 } from "./pages/post/edit";
 
-import ContactRoute, {
-  loader as contactLoader,
-  action as contactAction,
-} from "./routes/contact";
-import EditRoute, {
-  action as editAction,
-} from "./routes/edit";
-import { action as destroyAction } from "./routes/destroy";
+// import ContactRoute, {
+//   loader as contactLoader,
+//   action as contactAction,
+// } from "./routes/contact";
+// import EditRoute, {
+//   action as editAction,
+// } from "./routes/edit";
+// import { action as destroyAction } from "./routes/destroy";
 import ErrorPage from './error-page';
-import Index from "./routes/index";
+// import Index from "./routes/index";
 
 const router = createBrowserRouter([
   {

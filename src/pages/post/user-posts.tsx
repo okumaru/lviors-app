@@ -12,7 +12,7 @@ export default function () {
 
   const [totPage, SetTotPage] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
-  const [limit, setLimit] = useState<number>(10);
+  const [limit] = useState<number>(10);
   const [posts, setPosts] = useState<post[] | null>();
   const [acSearch, setAcSearch] = useState<string>('name');
   const [keyword, setKeyword] = useState<string>();
